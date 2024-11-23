@@ -7,6 +7,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
@@ -23,5 +24,16 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
             String message = "unsupported frame type: " + frame.getClass().getName();
             throw new UnsupportedOperationException(message);
         }
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//        ctx.channel().eventLoop().schedule(() -> {
+//            if (ctx.channel().isActive()) {
+//                System.out.println("Zamykanie kanału po " + 15 + " s.");
+//                ctx.channel().close();
+//            }
+//        }, 15, TimeUnit.SECONDS);
+        super.channelActive(ctx);
     }
 }
